@@ -6,11 +6,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.ukoeln.idh.teaching.jml</groupId>
-	<artifactId>exercise-09</artifactId>
+	<artifactId>exercise-10</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<name>exercise-09</name>
-	<url>https://github.com/idh-cologne-machine-learning-mit-java/exercise-09</url>
+	<name>exercise-10</name>
+	<url>https://github.com/idh-cologne-machine-learning-mit-java/exercise-10</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
