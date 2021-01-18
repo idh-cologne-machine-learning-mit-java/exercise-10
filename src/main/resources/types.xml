@@ -7,7 +7,7 @@
 	<vendor>Nils Reiter</vendor>
 	<types>
 		<typeDescription>
-			<name>de.ukoeln.idh.teaching.jml.ex09.types.Token</name>
+			<name>de.ukoeln.idh.teaching.jml.ex10.types.Token</name>
 			<description />
 			<supertypeName>uima.tcas.Annotation</supertypeName>
 			<features>
@@ -19,7 +19,7 @@
 			</features>
 		</typeDescription>
 		<typeDescription>
-			<name>de.ukoeln.idh.teaching.jml.ex09.types.Sentence</name>
+			<name>de.ukoeln.idh.teaching.jml.ex10.types.Sentence</name>
 			<description />
 			<supertypeName>uima.tcas.Annotation</supertypeName>
 			<features>
@@ -31,7 +31,7 @@
 			</features>
 		</typeDescription>
 		<typeDescription>
-			<name>de.ukoeln.idh.teaching.jml.ex09.types.NamedEntity</name>
+			<name>de.ukoeln.idh.teaching.jml.ex10.types.NamedEntity</name>
 			<description />
 			<supertypeName>uima.tcas.Annotation</supertypeName>
 			<features>

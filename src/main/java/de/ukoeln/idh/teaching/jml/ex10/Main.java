@@ -1,4 +1,4 @@
-package de.ukoeln.idh.teaching.jml.ex09;
+package de.ukoeln.idh.teaching.jml.ex10;
 
 import org.apache.uima.cas.CASException;
 import org.apache.uima.fit.factory.JCasFactory;
