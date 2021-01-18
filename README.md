@@ -1,33 +1,47 @@
-# Exercise 9: UIMA Type Systems
+# Exercise 10: UIMA Components and Pipelines
 
 
-This exercise has the goal of making you familiar with setting up and using a UIMA type system.
+This exercise has the goal of writing a simple UIMA component and integrating it into a pipeline.
 
 
 
 ## Step 1
-Please `clone` the repository `https://github.com/idh-cologne-machine-learning-mit-java/exercise-09`.
+Please `clone` the repository `https://github.com/idh-cologne-machine-learning-mit-java/exercise-10`.
 
 Create a new branch, using your UzK username.
 
 ## Step 2
-Open the file `src/main/resources/ex09types.xml`. This is our type descriptor file. You'll find some meta data in the file already. Please add the following types: `de.ukoeln.idh.teaching.jml.ex09.types.Token`, `de.ukoeln.idh.teaching.jml.ex09.types.Sentence` and `de.ukoeln.idh.teaching.jml.ex09.types.NamedEntity`, all inherit from `uima.tcas.Annotation`. `Token` and `Sentence` get an id feature, `NamedEntity` gets three features: `NEClass` (a String, to distinguish between person, organization etc.), `Confidence` (to store the probability from an NE recognizer) and `Source` (to store the name of the NER). You may want to verify that your type system description translates to Java code by invoking JCasGen (see documentation [here](https://uima.apache.org/d/uimaj-current/tools.html#ugr.tools.jcasgen)).
+As always, inspect existing code. The code in `de.ukoeln.idh.teaching.jml.ex10.Main` contains a simple `main()` function. The function creates and runs a pipeline consisting of a collection reader and a sentence splitter/tokenizer. As it is now, the code throws an exception, because the collection reader (`TextReader`, from the DKpro package) doesn't know where to read files from. Fix this, by adding a parameter `TextReader.PARAM_SOURCE_LOCATION` with a value of `src/main/resources/corpus/*.txt`. This is a large portion of the set of Sherlock Holmes stories by Conan Doyle.
+
+(DKpro is a library that contains pre-packaged NLP components for many NLP tasks. We will talk about DKpro in more detail next week).
 
 ## Step 3
-Invoking JCasGen manually is not a good strategy. We therefore want to add it to our build process via maven. To this end, add the `jcasgen-maven-plugin` to the `pom.xml` file. It has the groupId `org.apache.uima`, the artifactId `jcasgen-maven-plugin` and version `3.1.1` is the most recent one. You'll find documentation on the configuration on [this page](https://uima.apache.org/d/uimaj-current/tools.html#ugr.tools.jcasgen.maven_plugin). 
+Add a new component. The new component is a simple named entity recognizer. The rules for detecting named entities are simple: Each sequence of tokens that start with an upper case letter is a single named entity, unless the sequence starts at the beginning of a sentence. In the latter case, we disregard the first token.
 
-If you did everything correctly, each change of the `ex09types.xml` file should result in updated Java classes. By default, they appear in the directory `target/generated-sources/jcasgen`.
+Consider the following examples (named entities marked with brackets):
+
+- My name is [Sherlock].
+- My name is [Sherlock Holmes].
+- The dog barks.
+- The dog barks at [Mr. Holmes].
+- Doctor [Watson] was confused.
+
+Implement the component, and add it to the pipeline.
 
 ## Step 4
-The class `de.ukoeln.idh.teaching.jml.ex09.Main` (the only one in the project) contains a line of code to create a `JCas` object for a (very short) text. Add token and sentence annotations for each token and sentence (well, it's only one).
+Add a second new component to give out something on the console (`System.out'). For each text, generate a frequency table of all named entities (i.e., how often "Mr. Holmes", "Dr. Watson", "Sherlock Holmes", etc. have been used).
 
-If you have created the types and they have been converted to Java classes, you can create annotations by first creating a Java object and then setting their begin/end features. E.g.:
+The output shoud look like this (made-up numbers):
 
-```java
-Token token = new Token(jcas);
-token.setBegin(0);
-token.setEnd(0);
 ```
+15 Sherlock Holmes
+13 Dr. Watson
+123 Professor Moriarty
+```
+
+### Step 4.1 (optional)
+Change your implementation such that the output is printed into a plain text file, named as the input file. You might want to look at the class `org.dkpro.core.api.io.JCasFileWriter_ImplBase`, which can be used to inherit from.
+
 
 ## Step 5
 As always, commit and push your code.
