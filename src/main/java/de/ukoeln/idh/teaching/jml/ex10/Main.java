@@ -1,46 +1,33 @@
 package de.ukoeln.idh.teaching.jml.ex10;
 
+import java.io.IOException;
+
+import org.apache.uima.analysis_engine.AnalysisEngineDescription;
+import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.CASException;
-import org.apache.uima.fit.factory.JCasFactory;
+import org.apache.uima.collection.CollectionException;
+import org.apache.uima.collection.CollectionReaderDescription;
+import org.apache.uima.fit.factory.AnalysisEngineFactory;
+import org.apache.uima.fit.factory.CollectionReaderFactory;
+import org.apache.uima.fit.pipeline.SimplePipeline;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
-
-import de.ukoeln.idh.teaching.jml.ex09.types.Sentence;
-import de.ukoeln.idh.teaching.jml.ex09.types.Token;
+import org.dkpro.core.io.text.TextReader;
+import org.dkpro.core.tokit.BreakIteratorSegmenter;
 
 public class Main {
 
 	static JCas jcas;
 
-	public static void main(String[] args) throws ResourceInitializationException, CASException {
-		jcas = JCasFactory.createText("The dog barks.");
+	public static void main(String[] args) throws ResourceInitializationException, CASException,
+			AnalysisEngineProcessException, CollectionException, IOException {
+		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class,
+				TextReader.PARAM_SOURCE_LOCATION, "src/main/corpus/*.txt");
 
-		Sentence sentence = new Sentence(jcas, 0, 14);
-		sentence.setId(0);
-		sentence.addToIndexes();
+		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
+				.createEngineDescription(BreakIteratorSegmenter.class);
 
-		Token token;
-
-		token = new Token(jcas, 0, 3);
-		token.setId(0);
-		token.addToIndexes();
-
-		token = new Token(jcas, 4, 7);
-		token.setId(1);
-		token.addToIndexes();
-
-		token = new Token(jcas, 8, 13);
-		token.setId(2);
-		token.addToIndexes();
-
-		token = new Token(jcas, 13, 14);
-		token.setId(2);
-		token.addToIndexes();
-
-		System.out.println(sentence.getCoveredText());
-		for (Token t : jcas.select(Token.class)) {
-			System.out.println(t.getCoveredText());
-		}
+		SimplePipeline.runPipeline(crd, tokenizer);
 	}
 
 }
