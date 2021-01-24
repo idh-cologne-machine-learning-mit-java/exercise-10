@@ -1,6 +1,8 @@
 package de.ukoeln.idh.teaching.jml.ex10;
 
 import java.io.IOException;
+import de.ukoeln.idh.teaching.jml.ex10.NamedEntityRecognizer;
+import de.ukoeln.idh.teaching.jml.ex10.FrequencyTablePrinter;
 
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -21,12 +23,18 @@ public class Main {
 
 	public static void main(String[] args) throws ResourceInitializationException, CASException,
 			AnalysisEngineProcessException, CollectionException, IOException {
-		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class);
+		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class,
+		    TextReader.PARAM_SOURCE_LOCATION, "src/main/resources/corpus/*.txt");
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		
+		AnalysisEngineDescription ner = AnalysisEngineFactory.createEngineDescription(NamedEntityRecognizer.class);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		AnalysisEngineDescription printer = AnalysisEngineFactory.createEngineDescription(FrequencyTablePrinter.class);
+		
+		SimplePipeline.runPipeline(crd, tokenizer, ner, printer);
+		
 
 	}
 
