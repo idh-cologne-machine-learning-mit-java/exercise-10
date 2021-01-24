@@ -21,12 +21,20 @@ public class Main {
 
 	public static void main(String[] args) throws ResourceInitializationException, CASException,
 			AnalysisEngineProcessException, CollectionException, IOException {
-		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class, TextReader.PARAM_SOURCE_LOCATION, "src/main/resources/corpus/*.txt");
+		CollectionReaderDescription crd = CollectionReaderFactory
+				.createReaderDescription(TextReader.class, 
+						TextReader.PARAM_SOURCE_LOCATION, "src/main/resources/corpus/*.txt");
 		
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		
+		AnalysisEngineDescription simple_ner = AnalysisEngineFactory
+				.createEngineDescription(SimpleNER.class);
+		
+		AnalysisEngineDescription frequency_printer = AnalysisEngineFactory
+				.createEngineDescription(FrequencyPrinter.class);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		SimplePipeline.runPipeline(crd, tokenizer, simple_ner, frequency_printer);
 
 	}
 
