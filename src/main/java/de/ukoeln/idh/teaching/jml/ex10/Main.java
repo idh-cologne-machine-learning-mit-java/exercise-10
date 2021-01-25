@@ -18,15 +18,20 @@ import org.dkpro.core.tokit.BreakIteratorSegmenter;
 public class Main {
 
 	static JCas jcas;
+	
+	public static final String CORPUS_PATH = "src/main/resources/corpus/*.txt";
+	
 
 	public static void main(String[] args) throws ResourceInitializationException, CASException,
 			AnalysisEngineProcessException, CollectionException, IOException {
-		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class);
+		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class, TextReader.PARAM_SOURCE_LOCATION, Main.CORPUS_PATH);
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		
+		AnalysisEngineDescription nerTagger = AnalysisEngineFactory.createEngineDescription(MyNER.class);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		SimplePipeline.runPipeline(crd, tokenizer, nerTagger);
 
 	}
 
