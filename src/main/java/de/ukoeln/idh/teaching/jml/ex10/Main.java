@@ -15,6 +15,9 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.dkpro.core.io.text.TextReader;
 import org.dkpro.core.tokit.BreakIteratorSegmenter;
 
+import de.ukoeln.idh.teaching.jml.ex10.Frequency;
+import de.ukoeln.idh.teaching.jml.ex10.NER;
+
 public class Main {
 
 	static JCas jcas;
@@ -26,7 +29,14 @@ public class Main {
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		
+		AnalysisEngineDescription NER = AnalysisEngineFactory
+				.createEngineDescription(NER.class);
+
+		AnalysisEngineDescription frequency = AnalysisEngineFactory
+				.createEngineDescription(Frequency.class);
+
+		SimplePipeline.runPipeline(crd, tokenizer, NER, frequency);
 
 	}
 
