@@ -25,8 +25,14 @@ public class Main {
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		
+		AnalysisEngineDescription ner = AnalysisEngineFactory
+				.createEngineDescription(NER.class);
+		
+		AnalysisEngineDescription printer = AnalysisEngineFactory
+				.createEngineDescription(Printer.class);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		SimplePipeline.runPipeline(crd, tokenizer, ner, printer);
 
 	}
 
