@@ -40,14 +40,14 @@ public class Main {
 		
 		AnalysisEngineDescription recognizer = AnalysisEngineFactory
 				.createEngineDescription(SimpleNER.class);
-//			
-//		AnalysisEngineDescription io = AnalysisEngineFactory
-//				.createEngineDescription(IO.class);
-//				//.createEngineDescription(CoreNlpNamedEntityRecognizer.class);
-//	
-//	
+			
+		AnalysisEngineDescription io = AnalysisEngineFactory
+				.createEngineDescription(IO.class);
+				//.createEngineDescription(CoreNlpNamedEntityRecognizer.class);
+	
+	
 		
-		SimplePipeline.runPipeline(crd, tokenizer, recognizer);
+		SimplePipeline.runPipeline(crd, tokenizer, recognizer, io);
 
 		
 

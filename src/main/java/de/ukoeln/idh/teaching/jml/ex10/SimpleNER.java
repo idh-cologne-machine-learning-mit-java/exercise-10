@@ -18,8 +18,8 @@ public class SimpleNER extends JCasAnnotator_ImplBase {
 			int localStartIndex = 0;
 			int localEndIndex = 0;
 			
-			
-			for (int i = 1; i < tokens.length; i++) {
+			int i = tokens[0].getCoveredText().equals("\"") ? 2 : 1;
+			while (i < tokens.length) {
 				Token token = tokens[i];
 				if (isUppercase(jcas, token)) {
 					localStartIndex = i;
@@ -31,6 +31,8 @@ public class SimpleNER extends JCasAnnotator_ImplBase {
 					int endIndex = tokens[localEndIndex].getBegin();
 					createNE(jcas, startIndex, endIndex);
 					i = localEndIndex;
+				} else {
+					i++;
 				}
 			}
 		}
@@ -45,8 +47,8 @@ public class SimpleNER extends JCasAnnotator_ImplBase {
 	}
 	
 	private Boolean isUppercase(JCas jcas, Token token) {
-		char firstChar = token.getCoveredText().charAt(0);
-		return Character.isAlphabetic(firstChar) && Character.isUpperCase(firstChar);
+		String text = token.getCoveredText();
+		return !text.equals("I") && Character.isAlphabetic(text.charAt(0)) && Character.isUpperCase(text.charAt(0));
 	}
 	
 	

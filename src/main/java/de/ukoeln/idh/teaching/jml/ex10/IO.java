@@ -20,7 +20,6 @@ public class IO extends JCasAnnotator_ImplBase {
 	    	  //add to HashMap
 	    	  namedEntities.put(text, namedEntities.get(text) + 1);
 	      } else {
-
 	    	  namedEntities.put(text, 1);
 	      }
 
