@@ -14,6 +14,9 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.dkpro.core.io.text.TextReader;
 import org.dkpro.core.tokit.BreakIteratorSegmenter;
+import org.dkpro.core.corenlp.CoreNlpNamedEntityRecognizer;
+
+
 
 public class Main {
 
@@ -21,12 +24,30 @@ public class Main {
 
 	public static void main(String[] args) throws ResourceInitializationException, CASException,
 			AnalysisEngineProcessException, CollectionException, IOException {
-		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class);
+		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(
+				TextReader.class,
+				TextReader.PARAM_SOURCE_LOCATION, "src/main/resources/corpus/*.txt",
+				TextReader.PARAM_LANGUAGE, "en");
+		
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		
+		AnalysisEngineDescription recognizer = AnalysisEngineFactory
+				.createEngineDescription(NameRecognizer.class);
+		
+		//.createEngineDescription(CoreNlpNamedEntityRecognizer.class);
+		
+		AnalysisEngineDescription printer = AnalysisEngineFactory
+				.createEngineDescription(NamePrinter.class);
+	
+				
+	
+	
+		
+		SimplePipeline.runPipeline(crd, tokenizer, recognizer, printer);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		
 
 	}
 
