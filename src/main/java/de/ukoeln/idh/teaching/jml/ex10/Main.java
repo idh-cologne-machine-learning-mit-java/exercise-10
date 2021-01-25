@@ -21,7 +21,8 @@ public class Main {
 
 	public static void main(String[] args) throws ResourceInitializationException, CASException,
 			AnalysisEngineProcessException, CollectionException, IOException {
-		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class);
+		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class,
+				TextReader.PARAM_SOURCE_LOCATION, "src/main/resources/corpus/*.txt");
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
