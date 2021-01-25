@@ -19,14 +19,37 @@ public class Main {
 
 	static JCas jcas;
 
-	public static void main(String[] args) throws ResourceInitializationException, CASException,
-			AnalysisEngineProcessException, CollectionException, IOException {
-		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(TextReader.class);
+	public static void main(String[] args) throws 
+		ResourceInitializationException,
+		CASException,
+		AnalysisEngineProcessException,
+		CollectionException,
+		IOException 
+	
+	{
+		
+		
+		CollectionReaderDescription crd = CollectionReaderFactory.createReaderDescription(
+				TextReader.class,
+				TextReader.PARAM_SOURCE_LOCATION, "src/main/resources/corpus/*.txt",
+				TextReader.PARAM_LANGUAGE, "en");
+		
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		
+		AnalysisEngineDescription recognizer = AnalysisEngineFactory
+				.createEngineDescription(SimpleNER.class);
+//			
+//		AnalysisEngineDescription io = AnalysisEngineFactory
+//				.createEngineDescription(IO.class);
+//				//.createEngineDescription(CoreNlpNamedEntityRecognizer.class);
+//	
+//	
+		
+		SimplePipeline.runPipeline(crd, tokenizer, recognizer);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		
 
 	}
 

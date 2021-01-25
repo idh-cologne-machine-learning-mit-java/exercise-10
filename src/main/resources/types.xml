@@ -18,6 +18,16 @@
 				</featureDescription>
 			</features>
 		</typeDescription>
+		
+		<typeDescription>
+			<name>de.ukoeln.idh.teaching.jml.ex10.types.Token_Type</name>
+			<description />
+			<supertypeName>uima.tcas.Annotation_Type</supertypeName>
+		</typeDescription>
+		
+		
+		
+		
 		<typeDescription>
 			<name>de.ukoeln.idh.teaching.jml.ex10.types.Sentence</name>
 			<description />
@@ -52,5 +62,6 @@
 				</featureDescription>
 			</features>
 		</typeDescription>
+		
 	</types>
 </typeSystemDescription>
