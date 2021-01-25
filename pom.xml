@@ -74,7 +74,8 @@
 						</goals>
 						<configuration>
 							<typeSystemIncludes>
-								<typeSystemInclude>src/main/resources/ex09types.xml
+							
+								<typeSystemInclude>src/main/resources/types.xml
 								</typeSystemInclude>
 							</typeSystemIncludes>
 						</configuration>
