@@ -26,8 +26,10 @@ public class Main {
 
 		AnalysisEngineDescription tokenizer = AnalysisEngineFactory
 				.createEngineDescription(BreakIteratorSegmenter.class);
+		AnalysisEngineDescription neTagger = AnalysisEngineFactory.createEngineDescription(NETagger.class);
 
-		SimplePipeline.runPipeline(crd, tokenizer);
+		SimplePipeline.runPipeline(crd, tokenizer, neTagger,
+				AnalysisEngineFactory.createEngineDescription(NECounter.class));
 
 	}
 
